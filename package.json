@@ -1,9 +1,13 @@
 {
-    "name": "application-name"
+    "name": "postCardit"
+  , "main": "app.js"
+  , "author": "Jason Carter"
   , "version": "0.0.1"
-  , "private": true
+  , "private": false
+  , "scripts": {
+  		"start" : "node app.js"
+  }
   , "dependencies": {
       "express": "2.5.8"
-    , "jade": ">= 0.0.1"
   }
 }
