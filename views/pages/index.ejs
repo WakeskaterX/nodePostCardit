@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="http://localhost:3030/stylesheets/style.css" />
+	</head>
+	<body>
+		<h1>Welcome to Post Card-IT!</h1>
+		<form action="/submit">
+			<input type="file" name="image" accept="images/*" onchange="uploadImage(this.files);"><br/>
+			<p>Select an image to upload!  (bmp, jpg, png or gif only!)</p>
+		</form>
+		<div id='showImage'></div>
+	<script>
+		var uploadImage = function(files){
+			var image = (files[0] != null) ? files[0] : null;
+			if (image != null){
+				if (image.type.match(/image.*/)){
+					var http = new XMLHttpRequest();
+					var url = "http://localhost:3030/submit";
+					var reader = new FileReader();
+
+					reader.onloadend = function(evt){
+						if (evt.target.readyState == FileReader.DONE){
+							var binaryData = evt.target.result;
+							var data = {data: binaryData, mimetype: image.type, name: image.name};
+
+							//console.log(binaryData);
+						
+							http.open('POST',url,true);
+
+							http.setRequestHeader('Content-Type','application/json');
+							//console.log('Image Type: '+image.type);
+							
+							http.onreadystatechange = function(){
+								if (http.readyState == 4 && http.status == 200){
+									console.log('RESPONSE: '+http.responseText);
+									var imPath = JSON.parse(http.responseText).path;
+									var holder = document.getElementById('showImage');
+									fullPath = "http://localhost:3030/"+imPath;
+									holder.style.display = 'block';
+									holder.style.background = 'url('+fullPath+') no-repeat center center';
+									holder.style.backgroundSize = 'contain';
+								}
+							}
+
+							http.send(JSON.stringify(data));
+						}
+					};
+					
+					reader.readAsBinaryString(image);
+				}
+			}
+		};
+	</script>
+	</body>
+</html>
