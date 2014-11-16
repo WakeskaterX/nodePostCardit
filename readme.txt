@@ -16,4 +16,7 @@ graphics magick
   sudo apt-get install imagemagick
   sudo npm install gm
 
+Start the APP:  (Requires SUDO for Read/Write File Permissions)
+  sudo node app.js
+
 
