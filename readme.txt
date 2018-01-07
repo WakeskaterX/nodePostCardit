@@ -1,5 +1,7 @@
 ﻿Readme for PostCardit
 
+WARNING: Make sure to update EJS to a more relevant version - this is a very old repo and there is a security issue with the version of EJS in it.
+
 Requirements:
 
 nodejs
